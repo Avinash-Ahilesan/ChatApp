@@ -1,15 +1,22 @@
 {
-  "name": "ChatApp1.0",
+  "name": "chatapp1.0",
   "version": "1.0.0",
   "description": "",
-  "main": "Server.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avinash-Ahilesan/ChatApp.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Avinash-Ahilesan/ChatApp/issues"
+  },
+  "homepage": "https://github.com/Avinash-Ahilesan/ChatApp#readme"
 }
