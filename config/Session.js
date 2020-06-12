@@ -1,5 +1,5 @@
 // import {IN_PROD} from "./app";
-const IN_PROD = require("./app")
+const IN_PROD = require("./App").IN_PROD
 const HALF_HOUR = 1000 * 60 * 30;
 const {
     SESSION_SECRET = 'super secret code',

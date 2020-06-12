@@ -1,22 +1,38 @@
 {
   "name": "chatapp1.0",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A Chat Application",
+  "main": "src/Server.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "prebuild": "rm -rf dist",
+    "start": "node src/Server.js",
+    "dev": "nodemon src/Server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Avinash-Ahilesan/ChatApp.git"
   },
-  "author": "",
+  "author": "Avinash Ahilesan",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Avinash-Ahilesan/ChatApp/issues"
   },
-  "homepage": "https://github.com/Avinash-Ahilesan/ChatApp#readme"
+  "homepage": "https://github.com/Avinash-Ahilesan/ChatApp#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "connect-redis": "^4.0.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "ioredis": "^4.17.3",
+    "mongoose": "^5.9.18",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
