@@ -9,18 +9,17 @@ const login = (req, userId) => {
     req.session.userId = userId
     req.session.createdAt = Date.now()
 }
-const logout = (req, res) => {
+const logout = (req, res) =>
     new Promise((resolve, reject) => {
         if (req.session !== null && req.session !== 'undefined') {
             req.session.destroy((err) => {
                 if (err)
                     reject(err)
-                console.log(SESSION_NAME)
                 res.clearCookie(SESSION_NAME)
 
                 resolve()
             })
         }
     })
-}
+
 module.exports = {  login, logout, isLoggedIn }
