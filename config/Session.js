@@ -1,7 +1,7 @@
 // import {IN_PROD} from "./app";
 const IN_PROD = require("./App").IN_PROD
 const HALF_HOUR = 1000 * 60 * 30;
-const {
+ const {
     SESSION_SECRET = 'super secret code',
     SESSION_NAME = 'sid',
     SESSION_IDLE_TIMEOUT = HALF_HOUR,
@@ -19,4 +19,4 @@ const {
     resave: false,
     saveUninitialized: false
 }
-module.exports = { SESSION_OPTIONS }
+module.exports = { SESSION_OPTIONS, SESSION_NAME }

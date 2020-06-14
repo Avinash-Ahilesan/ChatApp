@@ -1,4 +1,5 @@
 // export { default as register} from './register'
 const register = require('./Register')
+const login = require('./Login')
 
-module.exports = register
+module.exports = {register, login}

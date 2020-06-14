@@ -1,6 +1,6 @@
 const Router = require('express')
 const registerSchema = require('../validation/Auth').registerSchema
-const validate = require('../validation')
+const validate = require('../validation').joiutil.validate
 const { login } = require('../Auth')
 const User = require("../models")
 const {guest, catchAsync} = require("../middleware");
@@ -16,7 +16,7 @@ router.post('/register', guest, catchAsync(async (req, res) => {
 
     if (found) {
         console.log('invalid email')
-        throw {code: 400, message: "Invalid Email"}
+        throw {status: 400, message: "Invalid Email"}
     }
 
     const user = await User.create({

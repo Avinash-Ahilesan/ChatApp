@@ -1,4 +1,8 @@
 const { Schema, model}= require('mongoose')
+const { hash, compare } = require('bcrypt')
+const crypto = require('crypto')
+
+const BCRYPT_WORK_FACTOR = require('../../config/Auth').BCRYPT_WORK_FACTOR
 
 const UserSchema = new Schema({
     email: String,
@@ -9,5 +13,15 @@ const UserSchema = new Schema({
     timeStamps: true
 })
 
+UserSchema.pre('save', async function() {
+    if (this.isModified('password')) {
+        const shaPassword= crypto.createHash('sha256').update(this.password).digest('base64')
+        this.password = await hash(shaPassword, BCRYPT_WORK_FACTOR)
+    }
+})
+
+UserSchema.methods.matchesPassword = function(password) {
+    return compare(password, this.password)
+}
 const User = model('User', UserSchema)
 module.exports = { User }

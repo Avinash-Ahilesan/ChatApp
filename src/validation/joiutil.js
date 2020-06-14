@@ -7,4 +7,4 @@ const validate = async (schema, payload) => {
     }
 }
 
-module.exports = validate
+module.exports = {validate}
