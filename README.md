@@ -1,2 +1,2 @@
 # ChatApp
-<h1>Secure Chat Application</h1>
+<h2>Secure Chat Application</h2>
