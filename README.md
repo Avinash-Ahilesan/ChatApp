@@ -1,5 +1,5 @@
 # ChatApp
-Secure Chat Application
+A first-time approach at creating a secure chat application hosted on the web with end to end encryption.
 ## Features
 ### Authentication Features
 - [x] Login, Logout, and Register
