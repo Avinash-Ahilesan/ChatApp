@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     password: String
 
 }, {
-    timeStamps: true
+    timestamps: true
 })
 
 UserSchema.pre('save', async function() {
