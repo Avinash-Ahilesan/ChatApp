@@ -21,7 +21,8 @@ UserSchema.pre('save', async function() {
 })
 
 UserSchema.methods.matchesPassword = function(password) {
-    return compare(password, this.password)
+    const shaPassword = crypto.createHash('sha256').update(password).digest('base64')
+    return compare(shaPassword, this.password);
 }
 const User = model('User', UserSchema)
 module.exports = { User }

@@ -15,8 +15,8 @@ router.post('/login', guest, catchAsync(async (req, res) => {
 
     const user = await User.findOne({ email })
 
-    // TODO: fix timing attack vulnerability
-    if (!user || !user.matchesPassword(password)) {
+    // TODO: fix timing attack vulnerability (hash random string if user doesnt exist)
+    if (!user || !(await user.matchesPassword(password))) {
         throw {status: 401, message: "Unauthorized"}
     }
 

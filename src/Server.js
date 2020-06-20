@@ -11,8 +11,7 @@ const MONGO_URI = require("../config/Db").MONGO_URI;
 const MONGO_OPTIONS = require('../config/Db').MONGO_OPTIONS;
 const mongoose = require('mongoose')
 
-;(async () => {
-    await mongoose.connect(MONGO_URI, MONGO_OPTIONS)
+;(async () => { await mongoose.connect(MONGO_URI, MONGO_OPTIONS)})()    // NOTE: can put rest of code in here in production
 
     const RedisStore = connectRedis(session)
 
@@ -24,6 +23,8 @@ const mongoose = require('mongoose')
 
     app.listen(APP_PORT, () => console.log(`http://localhost:${APP_PORT}`));
 
-})()
+    module.exports = app;
+
+
 
 
