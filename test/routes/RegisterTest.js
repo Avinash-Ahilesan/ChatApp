@@ -19,7 +19,7 @@ describe('Registering Account Tests', () => {
         chai.request(app)
             .post('/register')
             .set('Content-Type', 'application/json')
-            .send({email:"avinash112@gmail.com", name:"Avinash", password:"sSecretp123", passwordConfirmation: "sSecretp123"})
+            .send({email:"avinash112@gmail.com", fullname:"Avinash", username: "avi111", password:"sSecretp123", passwordConfirmation: "sSecretp123"})
             .end ((err, res) => {
                 expect(res.status).to.equal(200);
                 done();
@@ -30,7 +30,7 @@ describe('Registering Account Tests', () => {
         chai.request(app)
             .post('/register')
             .set('Content-Type', 'application/json')
-            .send({email:"avinash112", name:"Avinash", password:"sSecretp123", passwordConfirmation: "sSecretp123"})
+            .send({email:"avinash112", fullname:"Avinash",username:"avi131", password:"sSecretp123", passwordConfirmation: "sSecretp123"})
             .end ((err, res) => {
                 expect(res.status).to.equal(400);
                 done();
@@ -41,7 +41,7 @@ describe('Registering Account Tests', () => {
         chai.request(app)
             .post('/register')
             .set('Content-Type', 'application/json')
-            .send({email:"avinash112@gmail.com", name:"Avinash", password:"secretp123", passwordConfirmation: "secretp123"})
+            .send({email:"avinash112@gmail.com", username:"Avinash", fullname: "avi131", password:"secretp123", passwordConfirmation: "secretp123"})
             .end ((err, res) => {
                 expect(res.status).to.equal(400);
                 done();
@@ -52,7 +52,7 @@ describe('Registering Account Tests', () => {
         chai.request(app)
             .post('/register')
             .set('Content-Type', 'application/json')
-            .send({email:"avinash112@gmail.com", name:"Avinash", password:"stp123", passwordConfirmation: "stp123"})
+            .send({email:"avinash112@gmail.com", username:"Avinash", fullname: "avi131", password:"stp123", passwordConfirmation: "stp123"})
             .end ((err, res) => {
                 expect(res.status).to.equal(400);
                 done();
@@ -63,7 +63,7 @@ describe('Registering Account Tests', () => {
         chai.request(app)
             .post('/register')
             .set('Content-Type', 'application/json')
-            .send({email:"avinash112@gmail.com", name:"Avinash", password:"sSecretp", passwordConfirmation: "sSecretp"})
+            .send({email:"avinash112@gmail.com", fullname:"Avinash", username:"Avi131", password:"sSecretp", passwordConfirmation: "sSecretp"})
             .end ((err, res) => {
                 expect(res.status).to.equal(400);
                 done();
@@ -74,10 +74,44 @@ describe('Registering Account Tests', () => {
         chai.request(app)
             .post('/register')
             .set('Content-Type', 'application/json')
-            .send({email:"avinash112@gmail.com", name:"Avinash", password:"sSecretp123", passwordConfirmation: "sSecr"})
+            .send({email:"avinash112@gmail.com", fullname:"Avinash", username: "Avi131", password:"sSecretp123", passwordConfirmation: "sSecr"})
             .end ((err, res) => {
                 expect(res.status).to.equal(400);
                 done();
+            })
+    })
+
+    it('Registering with same email twice', (done) => {
+        chai.request(app)
+            .post('/register')
+            .set('Content-Type', 'application/json')
+            .send({email:"avinash112@gmail.com", fullname:"Avinash", username: "avi111", password:"sSecretp123", passwordConfirmation: "sSecretp123"})
+            .end ((err, res) => {
+                chai.request(app)
+                    .post('/register')
+                    .set('Content-Type', 'application/json')
+                    .send({email:"avinash112@gmail.com", fullname:"Avind", username: "avd", password:"sSecretp123", passwordConfirmation: "sSecretp123"})
+                    .end ((err, res) => {
+                        expect(res.status).to.equal(400);
+                        done();
+                    })
+            })
+    })
+
+    it('Registering with same username', (done) => {
+        chai.request(app)
+            .post('/register')
+            .set('Content-Type', 'application/json')
+            .send({email:"avinash112@gmail.com", fullname:"Avinash", username: "avi111", password:"sSecretp123", passwordConfirmation: "sSecretp123"})
+            .end ((err, res) => {
+                chai.request(app)
+                    .post('/register')
+                    .set('Content-Type', 'application/json')
+                    .send({email:"avinash2@gmail.com", fullname:"Avind", username: "avi111", password:"sSecretp123", passwordConfirmation: "sSecretp123"})
+                    .end ((err, res) => {
+                        expect(res.status).to.equal(400);
+                        done();
+                    })
             })
     })
 })

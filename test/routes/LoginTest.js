@@ -21,7 +21,8 @@ describe('Logging In Tests', () => {
             .set('Content-Type', 'application/json')
             .send({
                 email: "avinash112@gmail.com",
-                name: "Avinash",
+                fullname: "Avinash",
+                username: "avi131",
                 password: "sSecretp123",
                 passwordConfirmation: "sSecretp123"
             })
@@ -53,7 +54,8 @@ describe('Logging In Tests', () => {
             .set('Content-Type', 'application/json')
             .send({
                 email: "avinash112@gmail.com",
-                name: "Avinash",
+                fullname: "Avinash",
+                username: "avi131",
                 password: "sSecretp123",
                 passwordConfirmation: "sSecretp123"
             })
@@ -75,7 +77,8 @@ describe('Logging In Tests', () => {
             .set('Content-Type', 'application/json')
             .send({
                 email: "avinash1@gmail.com",
-                name: "Avinash",
+                fullname: "Avinash",
+                username: "avi131",
                 password: "sSecretp123",
                 passwordConfirmation: "sSecretp123"
             })

@@ -6,7 +6,8 @@ const BCRYPT_WORK_FACTOR = require('../../config/Auth').BCRYPT_WORK_FACTOR
 
 const UserSchema = new Schema({
     email: String,
-    name: String,
+    username: String,
+    fullname: String,
     password: String
 
 }, {

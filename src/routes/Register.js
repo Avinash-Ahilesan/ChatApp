@@ -10,17 +10,24 @@ const router = Router();
 router.post('/register', guest, catchAsync(async (req, res) => {
     await validate(registerSchema, req.body)
 
-    const { email, name, password } = req.body
+    const { email, username, fullname, password } = req.body
 
-    const found = await User.exists({ email })
+    const foundEmail = await User.exists({ email })
 
-    if (found) {
+    if (foundEmail) {
         console.log('invalid email')
         throw {status: 400, message: "Invalid Email"}
     }
 
+    const foundUsername = await User.exists({ username })
+
+    if (foundUsername) {
+        console.log('username taken');
+        throw {status: 400, message: "Username taken"}
+    }
+
     const user = await User.create({
-        email, name, password
+        email, username, fullname, password
     })
 
     login(req, user.id)
