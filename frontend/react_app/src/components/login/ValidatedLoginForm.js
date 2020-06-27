@@ -1,6 +1,5 @@
 import React from 'react'
 import {Formik} from 'formik'
-import * as Yup from 'yup'
 import {loginSchema} from '../validation/yupSchema'
 import Axios from 'axios'
 
@@ -50,7 +49,8 @@ class ValidatedLoginForm extends React.Component {
                         Axios.post('/login', {
                             email: values.email,
                             password: values.password
-                        }).catch((err) => console.log("Err"))
+                        }).then(() => this.props.setLoggedIn())
+                            .catch((err) => console.log("Err"))
                         console.log("Logging in");
                     }).catch((err) => {
                         this.setState({error: err.errors})

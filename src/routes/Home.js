@@ -6,7 +6,10 @@ const router = Router()
 
 router.get('/home', auth, catchAsync(async (req, res) => {
     const user = await User.findById(req.session.userId)
-    res.status(200).json({message: `Welcome ${user.name}!`})
+    if (!user) {
+        res.status(401).json({message: 'Unauthorized'})
+    }
+    res.status(200).json({message: `Welcome ${user.username}!`})
 }))
 
 module.exports = router

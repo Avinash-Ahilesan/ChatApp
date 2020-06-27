@@ -1,18 +1,32 @@
 import React from 'react';
 import ValidatedLoginForm from "./ValidatedLoginForm";
 import Header from "../layouts/Header";
+import { Redirect } from 'react-router-dom'
 
 
-class Login extends React.Component{
+class Login extends React.Component {
+
+    constructor(props) {
+        super(props);
+        if (props.test === 'null' || props.test === 'undefined') {
+            console.log("You went here manually!")
+        }
+    }
+
     render() {
-        return (
-            <React.Fragment>
-                <Header />
-                <div className="Login">
-                    <ValidatedLoginForm />
-                </div>
-            </React.Fragment>
-        );
+        console.log(this.props.isLoggedIn)
+        if (this.props.isLoggedIn) {
+            return (<Redirect to="/"/>);
+        } else {
+            return (
+                <React.Fragment>
+                    <Header/>
+                    <div className="Login">
+                        <ValidatedLoginForm setLoggedIn={this.props.setLoggedIn}/>
+                    </div>
+                </React.Fragment>
+            );
+        }
     }
 }
 

@@ -20,7 +20,7 @@ p {
 
 @keyframes animated-text{
   from{width: 0;}
-  to{width: 385px;}
+  to{width: 600px;}
 }
 
 /* cursor animations */
