@@ -1,8 +1,8 @@
 import React from 'react'
 import {Formik} from 'formik'
 import * as Yup from 'yup'
-import loginSchema from '../validation/yupSchema'
-
+import {loginSchema} from '../validation/yupSchema'
+import Axios from 'axios'
 
 const buttonStyle = {
     padding: '10px 15px',
@@ -47,13 +47,16 @@ class ValidatedLoginForm extends React.Component {
                 setTimeout(() => {
                     setSubmitting(true)
                     loginSchema.validate(values).then((valid) => {
-                        console.log(valid)
+                        Axios.post('/login', {
+                            email: values.email,
+                            password: values.password
+                        }).catch((err) => console.log("Err"))
+                        console.log("Logging in");
                     }).catch((err) => {
                         this.setState({error: err.errors})
                         console.log(err)
                     })
-                    console.log("Logging in", values);
-                    setSubmitting(false);
+                    setSubmitting(false)
                 }, 500)
             }}
         >

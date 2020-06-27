@@ -1,7 +1,7 @@
 import React from 'react'
 import {Formik} from 'formik'
-import * as Yup from 'yup'
-
+import {registrationSchema} from '../validation/yupSchema'
+import Axios from 'axios'
 
 const buttonStyle = {
     padding: '10px 15px',
@@ -16,34 +16,37 @@ const buttonStyle = {
     }
 }
 
+const inputFeedback = {
+    color: 'rgb(235, 54, 54)',
+    marginTop: '-20px',
+    fontSize: '14px',
+    marginBottom: '20px',
+}
 function InvalidInput(props) {
-    console.log(props.errors)
-    console.log(props.changed)
     if(!(props.errors && props.changed)) {
         return null;
     }
     return (
-        <div className="input-feedback">{props.errors}</div>
+        <div className="input-feedback" style={inputFeedback}>{props.errors}</div>
     );
 }
 
 const ValidatedRegisterForm = () => (
     <Formik
-        initialValues={{email: "", password: ""}}
+        initialValues={{email: "", fullname: "", username: "", password: "", passwordConfirmation:""}}
         onSubmit={(values, {setSubmitting}) => {
             setTimeout(() => {
-                console.log("Logging in", values);
+                Axios.post('/register', {
+                    email: values.email,
+                    fullname: values.fullname,
+                    username: values.username,
+                    password: values.password,
+                    passwordConfirmation: values.passwordConfirmation
+                })
                 setSubmitting(false);
             }, 500)
         }}
-        validationSchema={Yup.object().shape({
-            email: Yup.string().email().required("An Email Is Required"),
-            password: Yup.string()
-                .required("No password provided.")
-                .min(8, "Password is too short - should be 8 characters minimum")
-                .matches(/^(?=.*?[\p{Lu}])(?=.*?[\p{Ll}])(?=.*?\d).*$/u,
-                    "Password must have atleast one upper case letter, one lower case letter, and a digit")
-        })}
+        validationSchema={registrationSchema}
     >
         {props => {
             const {
@@ -63,8 +66,22 @@ const ValidatedRegisterForm = () => (
                            value={values.email} onChange={handleChange} onBlur={handleBlur}
                            className={errors.email && touched.email && "error"}/>
 
-
                     <InvalidInput errors={errors.email} changed={touched.email} />
+
+
+                    <label htmlFor="email">Full Name</label>
+                    <input name="fullname" type="text" placeholder="Enter your full name"
+                           value={values.fullname} onChange={handleChange} onBlur={handleBlur}
+                           className={errors.fullname && touched.fullname && "error"}/>
+
+                    <InvalidInput errors={errors.fullname} changed={touched.fullname} />
+
+                    <label htmlFor="email">User name</label>
+                    <input name="username" type="text" placeholder="Enter your full name"
+                           value={values.username} onChange={handleChange} onBlur={handleBlur}
+                           className={errors.username && touched.username && "error"}/>
+
+                    <InvalidInput errors={errors.username} changed={touched.username} />
 
 
                     <label htmlFor="email">Password</label>
@@ -74,7 +91,16 @@ const ValidatedRegisterForm = () => (
                     />
                     <InvalidInput errors={errors.password} changed={touched.password} />
 
-                    <button style={buttonStyle} type="submit" disabled={isSubmitting}>Login</button>
+                    <label htmlFor="email">Confirm your password</label>
+                    <input name="passwordConfirmation" type="password" placeholder="Enter your password"
+                           value={values.passwordConfirmation} onChange={handleChange} onBlur={handleBlur}
+                           className={errors.passwordConfirmation && touched.passwordConfirmation && "error"}
+                    />
+                    <InvalidInput errors={errors.passwordConfirmation} changed={touched.passwordConfirmation} />
+
+
+
+                    <button style={buttonStyle} type="submit" disabled={isSubmitting}>Register</button>
                 </form>
             )
         }}
