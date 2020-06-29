@@ -4,7 +4,7 @@ import Header from "../layouts/Header";
 function LandingNotLogged(props) {
     return (
         <div className="container">
-            <Header/>
+            <Header isLoggedIn={props.isLoggedIn}/>
             <section>
                 <h1>Chat App 1.0</h1>
                 <p className="subhead" style={pStyle}>The better way to communicate</p>

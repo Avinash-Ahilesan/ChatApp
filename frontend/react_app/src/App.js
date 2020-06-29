@@ -7,30 +7,40 @@ import About from "./components/pages/About"
 import LandingNotLogged from "./components/pages/LandingNotLogged";
 import Register from "./components/register/Register";
 import Axios from 'axios'
+import Main from "./Main";
+import Logout from "./components/pages/Logout";
 
 const proxy = {
     host: 'http://localhost',
     port: 3001
 };
 
+
 class App extends React.Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            loggedInStatus: "NOT_LOGGED_IN",
+            loggedInStatus: "NOT_LOGGED_IN",    // 3 values: NOT_LOGGED_IN, LOGGED_IN, CHECKING
             user: {}
         }
     }
     componentDidMount() {
-        Axios.get('/home').then((response)=> {
+        this.setState({
+            loggedInStatus: "CHECKING",
+            user: {}
+        })
+        Axios.get('/home').then((response) => {
             console.log(response)
             this.setState({
                 loggedInStatus: "LOGGED_IN",
                 user: {}
             })
         }).catch((err) => {
-
+            this.setState({
+                loggedInStatus: "NOT_LOGGED_IN",
+                user: {}
+            })
         })
     }
 
@@ -44,7 +54,7 @@ class App extends React.Component{
     }
 
     setLoggedOut() {
-        Axios.post('/logout').then(() => {
+        return Axios.post('/logout').then(() => {
             this.setState({
                 loggedInStatus: "NOT_LOGGED_IN",
                 user: {}
@@ -54,22 +64,33 @@ class App extends React.Component{
         })
     }
     isLoggedIn(){
+        if (this.state.loggedInStatus === "CHECKING") {
+            return "CHECKING"
+        }
         return this.state.loggedInStatus === "LOGGED_IN";
     }
 
   render() {
       return (
           <Router>
-              <Route exact path="/" render={props => this.isLoggedIn() ? <button onClick={this.setLoggedOut}>Logout</button> : <LandingNotLogged /> }/>
+              <Route exact path="/" render={props => {
+                  if (this.isLoggedIn() === "CHECKING") {
+                      return (<div></div>)
+                  }
+                  return ( this.isLoggedIn() ? <Main isLoggedIn={this.isLoggedIn()}/> : <LandingNotLogged isLoggedIn={this.isLoggedIn()}/> )
+                }
+               }/>
               <Route path="/login"  render={props =>
                   <Login {...props}
                                  isLoggedIn={this.isLoggedIn()}
                                  setLoggedIn={this.setLoggedIn.bind(this)}/>
               }
               />
-              <Route path="/register" render={props => <Register {...props} />} isLoggedIn={this.isLoggedIn()}
-                     setLoggedIn={this.setLoggedIn.bind(this)}/>
+              <Route path="/register" render={props => <Register {...props}
+                                                                 setLoggedIn={this.setLoggedIn.bind(this)}
+                                                                 isLoggedIn={this.isLoggedIn()} />  }  />
               <Route path="/about" component={About} />
+              <Route path="/logout" render={props => <Logout { ... props} setLoggedOut={this.setLoggedOut.bind(this)}/>} />
           </Router>
       );
   }

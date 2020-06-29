@@ -49,7 +49,7 @@ class ValidatedLoginForm extends React.Component {
                         Axios.post('/login', {
                             email: values.email,
                             password: values.password
-                        }).then(() => this.props.setLoggedIn())
+                        }).then((response) => this.props.setLoggedIn(response))
                             .catch((err) => console.log("Err"))
                         console.log("Logging in");
                     }).catch((err) => {

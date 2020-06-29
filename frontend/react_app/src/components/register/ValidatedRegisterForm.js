@@ -1,6 +1,6 @@
 import React from 'react'
 import {Formik} from 'formik'
-import {registrationSchema} from '../validation/yupSchema'
+import {registrationSchema as values, registrationSchema} from '../validation/yupSchema'
 import Axios from 'axios'
 
 const buttonStyle = {
@@ -31,83 +31,89 @@ function InvalidInput(props) {
     );
 }
 
-const ValidatedRegisterForm = () => (
-    <Formik
-        initialValues={{email: "", fullname: "", username: "", password: "", passwordConfirmation:""}}
-        onSubmit={(values, {setSubmitting}) => {
-            setTimeout(() => {
-                Axios.post('/register', {
-                    email: values.email,
-                    fullname: values.fullname,
-                    username: values.username,
-                    password: values.password,
-                    passwordConfirmation: values.passwordConfirmation
-                })
-                setSubmitting(false);
-            }, 500)
-        }}
-        validationSchema={registrationSchema}
-    >
-        {props => {
-            const {
-                values,
-                touched,
-                errors,
-                isSubmitting,
-                handleChange,
-                handleBlur,
-                handleSubmit
-            } = props;
-            return (
-
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email</label>
-                    <input name="email" type="text" placeholder="Enter your email"
-                           value={values.email} onChange={handleChange} onBlur={handleBlur}
-                           className={errors.email && touched.email && "error"}/>
-
-                    <InvalidInput errors={errors.email} changed={touched.email} />
+class ValidatedRegisterForm extends React.Component {
 
 
-                    <label htmlFor="email">Full Name</label>
-                    <input name="fullname" type="text" placeholder="Enter your full name"
-                           value={values.fullname} onChange={handleChange} onBlur={handleBlur}
-                           className={errors.fullname && touched.fullname && "error"}/>
+    render() {
+        return (
+            <Formik
+                initialValues={{email: "", fullname: "", username: "", password: "", passwordConfirmation: ""}}
+                onSubmit={(values, {setSubmitting}) => {
+                    setTimeout(() => {
+                        Axios.post('/register', {
+                            email: values.email,
+                            fullname: values.fullname,
+                            username: values.username,
+                            password: values.password,
+                            passwordConfirmation: values.passwordConfirmation
+                        }).then((response) => this.props.setLoggedIn(response))
+                            .catch((err) => console.log(err))
+                        setSubmitting(false);
+                    }, 500)
+                }}
+                validationSchema={registrationSchema}
+            >
+                {props => {
+                    const {
+                        values,
+                        touched,
+                        errors,
+                        isSubmitting,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit
+                    } = props;
+                    return (
 
-                    <InvalidInput errors={errors.fullname} changed={touched.fullname} />
+                        <form onSubmit={handleSubmit}>
+                            <label htmlFor="email">Email</label>
+                            <input name="email" type="text" placeholder="Enter your email"
+                                   value={values.email} onChange={handleChange} onBlur={handleBlur}
+                                   className={errors.email && touched.email && "error"}/>
 
-                    <label htmlFor="email">User name</label>
-                    <input name="username" type="text" placeholder="Enter your full name"
-                           value={values.username} onChange={handleChange} onBlur={handleBlur}
-                           className={errors.username && touched.username && "error"}/>
-
-                    <InvalidInput errors={errors.username} changed={touched.username} />
-
-
-                    <label htmlFor="email">Password</label>
-                    <input name="password" type="password" placeholder="Enter your password"
-                           value={values.password} onChange={handleChange} onBlur={handleBlur}
-                           className={errors.password && touched.password && "error"}
-                    />
-                    <InvalidInput errors={errors.password} changed={touched.password} />
-
-                    <label htmlFor="email">Confirm your password</label>
-                    <input name="passwordConfirmation" type="password" placeholder="Enter your password"
-                           value={values.passwordConfirmation} onChange={handleChange} onBlur={handleBlur}
-                           className={errors.passwordConfirmation && touched.passwordConfirmation && "error"}
-                    />
-                    <InvalidInput errors={errors.passwordConfirmation} changed={touched.passwordConfirmation} />
+                            <InvalidInput errors={errors.email} changed={touched.email}/>
 
 
+                            <label htmlFor="email">Full Name</label>
+                            <input name="fullname" type="text" placeholder="Enter your full name"
+                                   value={values.fullname} onChange={handleChange} onBlur={handleBlur}
+                                   className={errors.fullname && touched.fullname && "error"}/>
 
-                    <button style={buttonStyle} type="submit" disabled={isSubmitting}>Register</button>
-                </form>
-            )
-        }}
-    </Formik>
+                            <InvalidInput errors={errors.fullname} changed={touched.fullname}/>
 
-)
+                            <label htmlFor="email">User name</label>
+                            <input name="username" type="text" placeholder="Enter your full name"
+                                   value={values.username} onChange={handleChange} onBlur={handleBlur}
+                                   className={errors.username && touched.username && "error"}/>
+
+                            <InvalidInput errors={errors.username} changed={touched.username}/>
 
 
+                            <label htmlFor="email">Password</label>
+                            <input name="password" type="password" placeholder="Enter your password"
+                                   value={values.password} onChange={handleChange} onBlur={handleBlur}
+                                   className={errors.password && touched.password && "error"}
+                            />
+                            <InvalidInput errors={errors.password} changed={touched.password}/>
+
+                            <label htmlFor="email">Confirm your password</label>
+                            <input name="passwordConfirmation" type="password" placeholder="Enter your password"
+                                   value={values.passwordConfirmation} onChange={handleChange} onBlur={handleBlur}
+                                   className={errors.passwordConfirmation && touched.passwordConfirmation && "error"}
+                            />
+                            <InvalidInput errors={errors.passwordConfirmation} changed={touched.passwordConfirmation}/>
+
+
+                            <button style={buttonStyle} type="submit" disabled={isSubmitting}>Register</button>
+                        </form>
+                    )
+                }}
+            </Formik>
+
+        )
+    }
+
+
+}
 
 export default ValidatedRegisterForm
