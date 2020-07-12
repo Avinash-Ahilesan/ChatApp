@@ -26,8 +26,10 @@ router.post('/register', guest, catchAsync(async (req, res) => {
         throw {status: 400, message: "Username taken"}
     }
 
+    const friends = []
+    const friendRequests = []
     const user = await User.create({
-        email, username, fullname, password
+        email, username, fullname, password, friends, friendRequests
     })
 
     login(req, user.id)

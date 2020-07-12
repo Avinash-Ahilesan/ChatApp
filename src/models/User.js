@@ -8,7 +8,9 @@ const UserSchema = new Schema({
     email: String,
     username: String,
     fullname: String,
-    password: String
+    password: String,
+    friends: Array,
+    friendRequests: Array
 
 }, {
     timestamps: true

@@ -1,4 +1,6 @@
-curl -X POST localhost:3000/register -H "Content-Type: application/json" -d "{\"email\":\"avinash11@gmail.com\", \"name\":\"Avinash\", \"password\":\"sSecretp123\", \"passwordConfirmation\": \"sSecretp123\"}"
+curl -X POST localhost:3001/register -H "Content-Type: application/json" -d "{\"email\":\"avinash11@gmail.com\", \"fullname\":\"Avinash\", \"username\":\"Avinash\", \"password\":\"sSecretp123\", \"passwordConfirmation\": \"sSecretp123\"}"
 
 
-curl -v -X POST localhost:3000/login -H "Content-Type: application/json" -d "{\"email\":\"avinash11@gmail.com\", \"password\":\"sSecretp123\"}"
+curl -v -X POST localhost:3001/login -H "Content-Type: application/json" -d "{\"email\":\"avinash112@gmail.com\", \"password\":\"sSecretp123\"}"
+
+curl -X POST http://localhost:3001/friends/requests -H "Content-Type: application/json" -d "{\"username\": \"chiefsosa\"}" --cookie ""

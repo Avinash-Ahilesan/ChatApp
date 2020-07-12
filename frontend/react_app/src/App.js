@@ -10,10 +10,6 @@ import Axios from 'axios'
 import Main from "./Main";
 import Logout from "./components/pages/Logout";
 
-const proxy = {
-    host: 'http://localhost',
-    port: 3001
-};
 
 
 class App extends React.Component{

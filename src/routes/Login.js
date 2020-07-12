@@ -5,6 +5,7 @@ const loginSchema = require('../validation/Auth').loginSchema
 const {guest, auth, catchAsync} = require('../middleware');
 const login = require('../Auth').login
 const logout = require('../Auth').logout
+
 const router = Router()
 
 
@@ -20,7 +21,7 @@ router.post('/login', guest, catchAsync(async (req, res) => {
         throw {status: 401, message: "Unauthorized"}
     }
 
-    login(req, user.id)
+    login(req, user.id, user.friends)
 
     res.json({status: 200, message: 'Logged In'})
 

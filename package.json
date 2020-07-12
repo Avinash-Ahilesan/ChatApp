@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A Chat Application",
   "main": "src/Server.js",
+  "proxy": "http://localhost:3001/",
   "directories": {
     "test": "test"
   },

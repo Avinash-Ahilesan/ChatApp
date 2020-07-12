@@ -6,6 +6,7 @@ const {active} = require("./middleware/Auth");
 const home = require('./routes').home
 const register = require('./routes').register
 const login = require('./routes').login
+const friend = require('./routes').friend
 const {notFoundError, internalServerError} = require('./middleware')
 const SESSION_OPTIONS = require('../config/Session').SESSION_OPTIONS
 
@@ -25,6 +26,8 @@ const createApp = (store) => {
     app.use(register)
 
     app.use(login)
+
+    app.use(friend)
 
     // ERROR HANDLERS
 

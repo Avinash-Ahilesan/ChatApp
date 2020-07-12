@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Header from "../layouts/Header";
-import Axios from 'axios'
 const h1Style = {
     textAlign: 'center'
 }
