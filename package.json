@@ -34,7 +34,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "ioredis": "^4.17.3",
-    "mocha": "^8.0.1",
+    "mocha": "^8.4.0",
     "mongoose": "^5.9.18",
     "redis": "^3.0.2"
   },
